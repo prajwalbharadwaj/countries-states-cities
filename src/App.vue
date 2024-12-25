@@ -1,47 +1,28 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { reactive, computed } from 'vue';
+import data from '@/assets/csc';
+import Dropdown from '@/components/dropdown.vue';
+
+const state = reactive({
+  selectedCountry: null,
+  selectedState: null,
+  selectedCities: null,
+});
+
+const allCountries = computed(() => data);
+const allStates = computed(() => state?.selectedCountry?.states || []);
+const allCities = computed(() => state?.selectedState?.cities || []);
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="">
+    <Dropdown v-model="state.selectedCountry" :options="allCountries" placeholder="Select a country"
+      class="w-full md:w-56" />
+    <Dropdown v-if="state.selectedCountry?.id" v-model="state.selectedState" :options="allStates"
+      placeholder="Select a state" class="w-full md:w-56" />
+    <Dropdown v-if="state.selectedState?.id" v-model="state.selectedCities" :options="allCities"
+      placeholder="Select a City" class="w-full md:w-56" />
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style scoped></style>
