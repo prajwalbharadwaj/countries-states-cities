@@ -2,6 +2,7 @@
 import { reactive, computed, watch } from 'vue';
 import data from '@/assets/csc';
 import Dropdown from '@/components/dropdown.vue';
+import Footer from '@/components/footer.vue';
 
 const state = reactive({
   selectedCountry: null,
@@ -29,12 +30,25 @@ watch(() => state.selectedCountry?.id, () => {
     <Dropdown v-if="state.selectedState?.id && allCities?.length" v-model:selected="state.selectedCities"
       :options="allCities" placeholder="Select a City" class="w-full md:w-56" label="Select City" />
   </div>
+  <Footer class="footer-container" />
 </template>
 
 <style scoped>
 .container {
   padding: 8px;
-  display: flex;
   gap: 12px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: grid;
+  }
+}
+
+.footer-container {
+  position: fixed;
+  bottom: 0;
 }
 </style>

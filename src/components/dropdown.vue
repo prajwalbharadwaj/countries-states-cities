@@ -49,7 +49,6 @@ const filteredOptions = computed(() => {
 <style scoped>
 .dropdown {
   position: relative;
-  display: inline-block;
   font-size: 14px;
 }
 
@@ -71,8 +70,16 @@ hr {
   border: 1px solid #ccc;
   padding: 4px 8px;
   border-radius: 4px;
-  min-width: 250px;
   cursor: pointer;
+
+  @media screen and (min-width: 768px) {
+    min-width: 250px;
+  }
+
+  @media screen and (max-width: 768px) {
+    min-width: unset;
+    width: 100%;
+  }
 }
 
 .dropdown-trigger:hover {
@@ -85,7 +92,15 @@ hr {
   top: 100%;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   background: #fff;
-  min-width: 250px;
+
+  @media screen and (min-width: 768px) {
+    min-width: 250px;
+  }
+
+  @media screen and (max-width: 768px) {
+    min-width: unset;
+    width: 100%;
+  }
 }
 
 .dropdown-content-list {
