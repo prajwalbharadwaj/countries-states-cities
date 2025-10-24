@@ -2,6 +2,7 @@
 import { reactive, computed, watch } from 'vue';
 import data from '@/assets/csc';
 import Dropdown from '@/components/dropdown.vue';
+import CodeMirrorEditor from '@/components/CodeMirrorEditor.vue';
 import Footer from '@/components/footer.vue';
 
 const state = reactive({
@@ -23,13 +24,31 @@ watch(() => state.selectedCountry?.id, () => {
 <template>
   <div class="container">
     <Dropdown v-model:selected="state.selectedCountry" :options="allCountries" placeholder="Select a country"
-      class="w-full md:w-56" label="Select Country" />
+      class="container-width" label="Select Country" />
     <Dropdown v-if="state.selectedCountry?.id && allStates?.length" :key="state.selectedCountry?.id"
-      v-model:selected="state.selectedState" :options="allStates" placeholder="Select a state" class="w-full md:w-56"
+      v-model:selected="state.selectedState" :options="allStates" placeholder="Select a state" class="container-width"
       label="Select State" />
     <Dropdown v-if="state.selectedState?.id && allCities?.length" v-model:selected="state.selectedCities"
-      :options="allCities" placeholder="Select a City" class="w-full md:w-56" label="Select City" />
+      :options="allCities" placeholder="Select a City" class="container-width" label="Select City" />
+
   </div>
+  <div class="container">
+    <div class="container-width" v-if="state.selectedCountry?.id">
+      Selected Country:
+      <CodeMirrorEditor :jsonCode="JSON.stringify(state.selectedCountry, null, 2)" />
+    </div>
+
+    <div class="container-width" v-if="state.selectedState?.id">
+      Selected State:
+      <CodeMirrorEditor :jsonCode="JSON.stringify(state.selectedState, null, 2)" />
+    </div>
+
+    <div class="container-width" v-if="state.selectedCities?.id">
+      Selected Cities:
+      <CodeMirrorEditor :jsonCode="JSON.stringify(state.selectedCities, null, 2)" />
+    </div>
+  </div>
+
   <Footer class="footer-container" />
 </template>
 
@@ -50,5 +69,15 @@ watch(() => state.selectedCountry?.id, () => {
 .footer-container {
   position: fixed;
   bottom: 0;
+}
+
+.container-width {
+  @media screen and (min-width: 768px) {
+    width: 32%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 </style>
