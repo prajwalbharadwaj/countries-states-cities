@@ -1,9 +1,9 @@
 <script setup>
 import { reactive, computed, watch } from 'vue';
 import data from '@/assets/csc';
-import Dropdown from '@/components/dropdown.vue';
+import Dropdown from '@/components/Dropdown.vue';
 import CodeMirrorEditor from '@/components/CodeMirrorEditor.vue';
-import Footer from '@/components/footer.vue';
+import Footer from '@/components/Footer.vue';
 
 const state = reactive({
   selectedCountry: null,
