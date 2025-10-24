@@ -18,6 +18,7 @@ onMounted(() => {
       extensions: [
         basicSetup,
         json(),
+        EditorState.readOnly.of(true)
       ]
     }),
     parent: editorContainer.value
